@@ -112,7 +112,7 @@ void connect() {
     Serial.print("Attempting MQTT connection with clientId: " + mqttClientId + "...");
     if (mqttClient.connect(mqttClientId.c_str(), mqttUser, mqttPassword)) {
       Serial.println("connected");
-      mqttClient.subscribe(mqttTopicIn);
+      mqttClient.subscribe(mqttTopicIn,1); // topic, QoS
       Serial.println("subscribed to topic: " + (String)mqttTopicIn);
     } else {
       Serial.print("failed, error_code=");
