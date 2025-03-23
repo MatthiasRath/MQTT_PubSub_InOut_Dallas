@@ -154,7 +154,8 @@ bool publish(void *) {
   String myFormatedTime = timeClient.getFormattedTime();
   String myUnixTime = (String)timeClient.getEpochTime() + "000000000"; // 19 digits, nano-seconds
   String sLineProtocol = "weatherdata,sensorid=" + (String)chipid + " temperature=" + (String)fTempC + " " + myUnixTime;
-  mqttClient.publish(mqttTopicOut,reinterpret_cast<unsigned char*>(const_cast<char*>(sLineProtocol.c_str())),false,1); // topic, message, retain, QoS
+  //mqttClient.publish(mqttTopicOut,reinterpret_cast<unsigned char*>(const_cast<char*>(sLineProtocol.c_str())),false,1); // topic, message, retain, QoS
+  mqttClient.publish(mqttTopicOut,sLineProtocol.c_str());
   Serial.println(sLineProtocol);
   return true; // repeat? true
 }
