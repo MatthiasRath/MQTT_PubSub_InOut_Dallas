@@ -27,7 +27,7 @@ float fTempC =  0.0;
 //#define MQTT_TLS_VERIFY // uncomment this define to enable broker certificate verification
 const char* ssid = "Eckenberger_92";;
 const char* password = "marlene!";
-const char* mqtt_server = "raspberry"; // eg. your-demo.cedalo.cloud or 192.168.1.11
+const char* mqtt_server = "rpi5-1"; // eg. your-demo.cedalo.cloud or 192.168.1.11
 const uint16_t mqtt_server_port = 1883; // or 8883 most common for tls transport
 const char* mqttUser = "matthias";
 const char* mqttPassword = "marlene";
@@ -153,7 +153,7 @@ bool publish(void *) {
   timeClient.update();
   String myFormatedTime = timeClient.getFormattedTime();
   String myUnixTime = (String)timeClient.getEpochTime() + "000000000"; // 19 digits, nano-seconds
-  String sLineProtocol = "weatherdata,sensorid=" + (String)chipid + " temperature=" + (String)fTempC + " " + myUnixTime;
+  String sLineProtocol = "weatherdata,mcu_id=" + (String)chipid + " temperature=" + (String)fTempC + " " + myUnixTime;
   mqttClient.publish(mqttTopicOut,sLineProtocol.c_str(),false); // topic, message, retain
   Serial.println(sLineProtocol);
   return true; // repeat? true
@@ -163,7 +163,7 @@ bool publish(void *) {
 //--------------------------------------
 void loop() {
   Serial.print(".");
-  delay(2000);
+  delay(5000);
   if (!mqttClient.connected()) {
     connect();
   }
